@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Iti Course</string>
+    <string name="enter_your_name">Enter your Name</string>
+    <string name="click_here">Click here</string>
 </resources>

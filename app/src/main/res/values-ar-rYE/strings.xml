@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Iti Course</string>
+    <string name="et_username">ادخل الاسم</string>
+    <string name="et_password">ادخل الرقم السري</string>
+    <string name="enter_your_name">ادخل اسمك</string>
+    <string name="click_here">اضغط هنا</string>
+    <string name="login_form">دخول</string>
+    <string name="username">الاسم</string>
+    <string name="password">الرقم السري</string>
+    <string name="login">دخول</string>
+</resources>

@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Iti Course</string>
-    <string name="enter_your_name">Enter your Name</string>
+    <string name="enter_your_name">enter your number</string>
     <string name="click_here">Click here</string>
+    <string name="login_form">Login Form</string>
+    <string name="username">Username</string>
+    <string name="et_username">username</string>
+    <string name="password">Password</string>
+    <string name="et_password">password</string>
+    <string name="login">login</string>
 </resources>

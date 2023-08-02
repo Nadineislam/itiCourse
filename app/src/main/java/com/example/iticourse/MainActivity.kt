@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btnClick.setOnClickListener { binding.btnClick.text = binding.etName.text.toString() }
+
     }
 }

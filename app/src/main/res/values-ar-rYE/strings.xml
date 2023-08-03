@@ -9,4 +9,9 @@
     <string name="username">الاسم</string>
     <string name="password">الرقم السري</string>
     <string name="login">دخول</string>
+    <string name="running">الجري</string>
+    <string name="tennis">التنس</string>
+    <string name="football">كرة القدم</string>
+    <string name="female">امرأة</string>
+    <string name="male">رجل</string>
 </resources>

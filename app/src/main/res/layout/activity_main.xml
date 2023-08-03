@@ -66,55 +66,62 @@
         app:layout_constraintBottom_toBottomOf="@id/tvPassword"
         app:layout_constraintStart_toEndOf="@id/tvPassword"
         app:layout_constraintTop_toTopOf="@id/tvPassword" />
-<RadioGroup
-    android:layout_margin="5dp"
-    android:id="@+id/radioGroup"
-    android:orientation="horizontal"
-    app:layout_constraintStart_toStartOf="parent"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/etPassword">
-    <RadioButton
-        android:id="@+id/rbFemale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Female"/>
-    <RadioButton
-        android:id="@+id/rbMale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"/>
 
-</RadioGroup>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword">
+
+        <RadioButton
+            android:id="@+id/rbFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female" />
+
+        <RadioButton
+            android:id="@+id/rbMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male" />
+
+    </RadioGroup>
+
     <CheckBox
         android:id="@+id/cbFootball"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Football"/>
-  <CheckBox
-      android:id="@+id/cbTennis"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Tennis"
-      app:layout_constraintStart_toEndOf="@id/cbFootball"
-      app:layout_constraintTop_toTopOf="@id/cbFootball"/>
-<CheckBox
-    android:id="@+id/cbRunning"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Running"
-    app:layout_constraintStart_toEndOf="@id/cbTennis"
-    app:layout_constraintTop_toTopOf="@id/cbTennis"/>
-   <Button
-       android:id="@+id/btnLogin"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:backgroundTint="@color/black"
-       app:layout_constraintTop_toBottomOf="@id/cbTennis"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       android:textAllCaps="false"
-       android:text="Login"/>
+        android:text="@string/football"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+
+    <CheckBox
+        android:id="@+id/cbTennis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tennis"
+        app:layout_constraintStart_toEndOf="@id/cbFootball"
+        app:layout_constraintTop_toTopOf="@id/cbFootball" />
+
+    <CheckBox
+        android:id="@+id/cbRunning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/running"
+        app:layout_constraintStart_toEndOf="@id/cbTennis"
+        app:layout_constraintTop_toTopOf="@id/cbTennis" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbTennis" />
 </androidx.constraintlayout.widget.ConstraintLayout>

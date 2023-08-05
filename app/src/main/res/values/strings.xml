@@ -13,4 +13,7 @@
     <string name="football">Football</string>
     <string name="female">Female</string>
     <string name="male">Male</string>
+    <string name="facebook">Facebook</string>
+    <string name="click">Click</string>
+    <string name="google">Google</string>
 </resources>

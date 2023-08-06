@@ -13,7 +13,9 @@
     <string name="football">Football</string>
     <string name="female">Female</string>
     <string name="male">Male</string>
-    <string name="facebook">Facebook</string>
-    <string name="click">Click</string>
-    <string name="google">Google</string>
+    <string name="facebook" translatable="false">Facebook </string>
+    <string name="click" translatable="false">Click</string>
+    <string name="google" translatable="false">Google</string>
+    <string name="go_to_second_activity" translatable="false">go to second activity</string>
+    <string name="exit" translatable="false">exit</string>
 </resources>

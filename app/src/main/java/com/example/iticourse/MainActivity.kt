@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.btnViewPosts.setOnClickListener { startActivity(Intent(baseContext,PostsActivity::class.java)) }
         binding.btnLogin.setOnClickListener {
             val name = binding.etUserName.text.toString()
             val selectedGender = when (binding.radioGroup.checkedRadioButtonId) {

@@ -3,15 +3,20 @@ package com.example.iticourse
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.iticourse.databinding.PostsBinding
+import com.bumptech.glide.Glide
+import com.example.iticourse.databinding.CustomPostsBinding
 
-class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostsViewHolder>() {
-    private var postList: List<Post> = ArrayList()
+class PostsAdapter(
+    private var postList: List<Post> = ArrayList(),
+    private val listener: OnClickListener
+) : RecyclerView.Adapter<PostsAdapter.PostsViewHolder>() {
 
-    inner class PostsViewHolder(val binding: PostsBinding) : RecyclerView.ViewHolder(binding.root)
+
+    inner class PostsViewHolder(val binding: CustomPostsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
-        return PostsViewHolder(PostsBinding.inflate(LayoutInflater.from(parent.context)))
+        return PostsViewHolder(CustomPostsBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
@@ -20,12 +25,12 @@ class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostsViewHolder>() {
             textUsername.text = posts.username
             textPostDate.text = posts.postDate
             textPostText.text = posts.postText
+            btnClickHere.setOnClickListener {
+                listener.onClick(posts, position)
+            }
         }
-    }
+        Glide.with(holder.itemView).load(posts.image).into(holder.binding.ivPerson)
 
-    fun setPosts(posts: List<Post>) {
-        postList = posts
-        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

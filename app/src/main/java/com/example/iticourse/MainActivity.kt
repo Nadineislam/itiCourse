@@ -18,6 +18,13 @@ class MainActivity : AppCompatActivity() {
         binding.btnViewPosts.setOnClickListener { startActivity(Intent(baseContext,PostsActivity::class.java)) }
         binding.btnLogin.setOnClickListener {
             val name = binding.etUserName.text.toString()
+            val sharedPreferences=applicationContext.getSharedPreferences("UserPref", MODE_PRIVATE)
+            val editor=sharedPreferences.edit()
+            editor.putString("USERNAME",name)
+            editor.putString("PASSWORD",binding.etPassword.text.toString())
+            editor.putBoolean("IS_LOGIN",true)
+            editor.commit()
+            startActivity(Intent(baseContext,PostsActivity::class.java))
             val selectedGender = when (binding.radioGroup.checkedRadioButtonId) {
                 binding.rbFemale.id -> "Female"
                 binding.rbMale.id -> "Male"
@@ -34,12 +41,12 @@ class MainActivity : AppCompatActivity() {
                 selectedSports.add(binding.cbRunning.text.toString())
             }
 
-            // Toast.makeText(baseContext,"Hello $name ,you're $selectedGender ,and your sports are ${selectedSports.joinToString()}",Toast.LENGTH_LONG).show()
-            val intent = Intent(baseContext, SecondActivity::class.java)
-            intent.putExtra("Name", name)
-            intent.putExtra("Gender", selectedGender)
-            intent.putExtra("Sports", selectedSports.joinToString())
-            startActivityForResult(intent, 100)
+             Toast.makeText(baseContext,"Hello $name ,you're $selectedGender ,and your sports are ${selectedSports.joinToString()}",Toast.LENGTH_LONG).show()
+//            val intent = Intent(baseContext, SecondActivity::class.java)
+//            intent.putExtra("Name", name)
+//            intent.putExtra("Gender", selectedGender)
+//            intent.putExtra("Sports", selectedSports.joinToString())
+//            startActivityForResult(intent, 100)
         }
 
 

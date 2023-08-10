@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="15dp">
+    android:layout_margin="30dp">
 
     <ImageView
         android:id="@+id/ivPerson"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_margin="15dp"
         android:src="@drawable/ic_baseline_person"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription" />
 
     <TextView
-        android:layout_margin="5dp"
         android:id="@+id/textUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="person"
+        android:layout_margin="5dp"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/ivPerson"
-        app:layout_constraintTop_toTopOf="@id/ivPerson" />
+        app:layout_constraintTop_toTopOf="@id/ivPerson"
+        tools:text="person" />
 
     <TextView
 
@@ -32,32 +33,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        tools:text="15/11"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/textPostText"
         app:layout_constraintStart_toEndOf="@id/ivPerson"
-        app:layout_constraintTop_toBottomOf="@id/textUsername" />
+        app:layout_constraintTop_toBottomOf="@id/textUsername"
+        tools:text="15/11" />
 
     <TextView
         android:id="@+id/textPostText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        tools:text="hello"
         android:layout_margin="5dp"
+        android:layout_marginTop="8dp"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/ivPerson"
+        app:layout_constraintEnd_toStartOf="@id/btnClickHere"
         app:layout_constraintStart_toEndOf="@id/ivPerson"
-        app:layout_constraintTop_toBottomOf="@id/textPostDate" />
+        app:layout_constraintTop_toBottomOf="@id/textPostDate"
+        tools:text="hello" />
 
     <Button
+        android:id="@+id/btnClickHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="@color/black"
         android:text="@string/click"
-        android:id="@+id/btnClickHere"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

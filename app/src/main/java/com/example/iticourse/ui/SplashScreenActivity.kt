@@ -1,10 +1,9 @@
- package com.example.iticourse
+ package com.example.iticourse.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.example.iticourse.databinding.ActivityDetailsBinding
 import com.example.iticourse.databinding.ActivitySplashScreenBinding
 
  class SplashScreenActivity : AppCompatActivity() {
@@ -18,10 +17,10 @@ import com.example.iticourse.databinding.ActivitySplashScreenBinding
         Handler().postDelayed(
             Runnable {
 if(isLogged){
-    startActivity(Intent(this,MainActivity::class.java))
+    startActivity(Intent(this, MainActivity::class.java))
 }
                 else{
-    startActivity(Intent(this,PostsActivity::class.java))
+    startActivity(Intent(this, PostsActivity::class.java))
                 }
                 finish()
             },3000

@@ -1,4 +1,4 @@
-package com.example.iticourse
+package com.example.iticourse.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.iticourse.R
 import com.example.iticourse.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btnViewPosts.setOnClickListener { startActivity(Intent(baseContext,PostsActivity::class.java)) }
+        binding.btnViewPosts.setOnClickListener { startActivity(Intent(baseContext, PostsActivity::class.java)) }
         binding.btnLogin.setOnClickListener {
             val name = binding.etUserName.text.toString()
             val sharedPreferences=applicationContext.getSharedPreferences("UserPref", MODE_PRIVATE)
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             editor.putString("PASSWORD",binding.etPassword.text.toString())
             editor.putBoolean("IS_LOGIN",true)
             editor.commit()
-            startActivity(Intent(baseContext,PostsActivity::class.java))
+            startActivity(Intent(baseContext, PostsActivity::class.java))
             val selectedGender = when (binding.radioGroup.checkedRadioButtonId) {
                 binding.rbFemale.id -> "Female"
                 binding.rbMale.id -> "Male"

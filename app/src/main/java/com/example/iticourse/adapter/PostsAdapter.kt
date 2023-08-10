@@ -1,13 +1,15 @@
-package com.example.iticourse
+package com.example.iticourse.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.iticourse.OnClickListener
 import com.example.iticourse.databinding.CustomPostsBinding
+import com.example.iticourse.model.User
 
 class PostsAdapter(
-    private var postList: List<Post> = ArrayList(),
+    private var userList: List<User>,
     private val listener: OnClickListener
 ) : RecyclerView.Adapter<PostsAdapter.PostsViewHolder>() {
 
@@ -20,20 +22,20 @@ class PostsAdapter(
     }
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
-        val posts = postList[position]
+        val users = userList[position]
         holder.binding.apply {
-            textUsername.text = posts.username
-            textPostDate.text = posts.postDate
-            textPostText.text = posts.postText
+            textUsername.text = "${users.firstName} ${users.lastName}"
+            textPostDate.text = "${users.id}"
+            textPostText.text = users.email
             btnClickHere.setOnClickListener {
-                listener.onClick(posts, position)
+                listener.onClick(users, position)
             }
         }
-        Glide.with(holder.itemView).load(posts.image).into(holder.binding.ivPerson)
+        Glide.with(holder.itemView).load(users.avatar).into(holder.binding.ivPerson)
 
     }
 
     override fun getItemCount(): Int {
-        return postList.size
+        return userList.size
     }
 }

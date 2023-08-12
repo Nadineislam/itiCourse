@@ -17,36 +17,32 @@ import com.example.iticourse.api.UserApi
 import com.example.iticourse.databinding.ActivityPostsBinding
 import com.example.iticourse.model.Post
 import com.example.iticourse.model.User
+import retrofit2.Retrofit
 
 
 class PostsActivity : AppCompatActivity(), OnClickListener {
     private lateinit var adapter: PostsAdapter
-    private lateinit var postList: ArrayList<Post>
     private lateinit var sharedPref :SharedPreferences
+    lateinit var retrofit:UserApi
     private lateinit var binding: ActivityPostsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref=applicationContext.getSharedPreferences("UserPref", MODE_PRIVATE)
         binding = ActivityPostsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.tvName.text="welcome ${sharedPref.getString("USERNAME","")}"
-        postList = ArrayList()
-        postList.add(Post("User1", "2023-08-01", "This is post 1.", R.drawable.ic_baseline_person))
-        postList.add(Post("User2", "2023-08-02", "This is post 2.", R.drawable.ic_baseline_girl_24))
-        postList.add(Post("User3", "2023-08-03", "This is post 3.",
-            R.drawable.ic_baseline_person_outline
-        ))
-        val retrofit=RetrofitClient.getInstance().create(UserApi::class.java)
-        lifecycleScope.launchWhenStarted { val response=retrofit.getUser()
-        if(response.isSuccessful){
-            adapter = PostsAdapter(response.body()?.data ?: listOf(),this@PostsActivity)
-            binding.rvPosts.adapter = adapter
-            binding.rvPosts.layoutManager = LinearLayoutManager(this@PostsActivity)
-        }
-            else{
-                Toast.makeText(this@PostsActivity,"error",Toast.LENGTH_LONG).show()
-            }
-        }
+         retrofit=RetrofitClient.getInstance()
+        //binding.tvName.text="welcome ${sharedPref.getString("USERNAME","")}"
+      binding.btnGetPosts.setOnClickListener {
+          lifecycleScope.launchWhenStarted { val response=retrofit.getPostsByUser(binding.etId.text.toString().toInt())
+              if(response.isSuccessful){
+                  adapter = PostsAdapter(response.body() ?: listOf(),this@PostsActivity)
+                  binding.rvPosts.adapter = adapter
+                  binding.rvPosts.layoutManager = LinearLayoutManager(this@PostsActivity)
+              }
+              else{
+                  Toast.makeText(this@PostsActivity,"error",Toast.LENGTH_LONG).show()
+              }
+          } }
 
 
     }
@@ -74,12 +70,33 @@ class PostsActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    override fun onClick(user: User, position: Int) {
-        val intent=Intent(baseContext, DetailsActivity::class.java)
-        intent.putExtra("username",user.firstName)
-        intent.putExtra("date",user.id)
-        intent.putExtra("text",user.email)
-        intent.putExtra("image",user.avatar)
-        startActivity(intent)
+    override fun onClick(post: Post, position: Int) {
+        lifecycleScope.launchWhenStarted { val response=retrofit.getComments(post.id)
+            if(response.isSuccessful){
+//                adapter = PostsAdapter(response.body() ?: listOf(),this@PostsActivity)
+//                binding.rvPosts.adapter = adapter
+//                binding.rvPosts.layoutManager = LinearLayoutManager(this@PostsActivity)
+                val comment=response.body()?.get(0)
+                val intent=Intent(this@PostsActivity,CommentsActivity::class.java)
+                intent.putExtra("post_id",comment?.postId)
+                intent.putExtra("comment_id",comment?.id)
+                intent.putExtra("email",comment?.email)
+                intent.putExtra("body",comment?.body)
+                intent.putExtra("name",comment?.name)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this@PostsActivity,"error",Toast.LENGTH_LONG).show()
+            }
+        }
     }
+
+//    override fun onClick(user: User, position: Int) {
+//        val intent=Intent(baseContext, DetailsActivity::class.java)
+//        intent.putExtra("username",user.firstName)
+//        intent.putExtra("date",user.id)
+//        intent.putExtra("text",user.email)
+//        intent.putExtra("image",user.avatar)
+//        startActivity(intent)
+//    }
 }

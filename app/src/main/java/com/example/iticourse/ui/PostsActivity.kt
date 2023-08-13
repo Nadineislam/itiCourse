@@ -30,7 +30,7 @@ class PostsActivity : AppCompatActivity(), OnClickListener {
         sharedPref=applicationContext.getSharedPreferences("UserPref", MODE_PRIVATE)
         binding = ActivityPostsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-         retrofit=RetrofitClient.getInstance()
+         retrofit=RetrofitClient.getInstance("https://jsonplaceholder.typicode.com/")
         //binding.tvName.text="welcome ${sharedPref.getString("USERNAME","")}"
       binding.btnGetPosts.setOnClickListener {
           lifecycleScope.launchWhenStarted { val response=retrofit.getPostsByUser(binding.etId.text.toString().toInt())

@@ -29,7 +29,7 @@ class CommentsActivity : AppCompatActivity() {
         adapter = CommentsAdapter(commentsList)
         binding.rvComments.adapter = adapter
         binding.rvComments.layoutManager = LinearLayoutManager(this@CommentsActivity)
-        val retrofit= RetrofitClient.getInstance()
+        val retrofit= RetrofitClient.getInstance("https://jsonplaceholder.typicode.com/")
         val postId = intent.getIntExtra("post_id", 0)
         lifecycleScope.launchWhenStarted { val response=retrofit.getComments(postId)
             if(response.isSuccessful){

@@ -7,22 +7,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.example.iticourse.R
 import com.example.iticourse.api.RetrofitClient
 import com.example.iticourse.api.UserApi
 import com.example.iticourse.databinding.ActivityMainBinding
-import com.example.iticourse.model.LoginBodyRequest
-import org.json.JSONObject
-import retrofit2.Retrofit
+import com.example.iticourse.viewmodels.UserViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var retrofit: UserApi
+    private lateinit var viewModel: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
         retrofit = RetrofitClient.getInstance("https://dummyjson.com")
         binding.btnViewPosts.setOnClickListener {
             startActivity(
@@ -33,23 +33,9 @@ class MainActivity : AppCompatActivity() {
             )
         }
         binding.btnLogin.setOnClickListener {
-
-            lifecycleScope.launchWhenStarted {
-                val response = retrofit.login(
-                    LoginBodyRequest(
-                        binding.etUserName.text.toString(),
-                        binding.etPassword.text.toString()
-                    )
-                )
-                if (response.isSuccessful) {
-                    moveToNextActivity()
-                } else {
-                    val json = JSONObject(response.errorBody()?.string())
-                    Toast.makeText(this@MainActivity, json.getString("message"), Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-
+            val userName = binding.etUserName.text.toString()
+            val password = binding.etPassword.text.toString()
+            viewModel.login(userName, password)
             val name = binding.etUserName.text.toString()
 
             val selectedGender = when (binding.radioGroup.checkedRadioButtonId) {
@@ -73,6 +59,17 @@ class MainActivity : AppCompatActivity() {
                 "Hello $name ,you're $selectedGender ,and your sports are ${selectedSports.joinToString()}",
                 Toast.LENGTH_LONG
             ).show()
+        }
+
+        viewModel.loginSuccess.observe(this) { loginSuccess ->
+            if (loginSuccess) {
+                moveToNextActivity()
+            } else {
+                Toast.makeText(this@MainActivity, "Login failed", Toast.LENGTH_LONG).show()
+            }
+        }
+
+
 //            val intent = Intent(baseContext, SecondActivity::class.java)
 //            intent.putExtra("Name", name)
 //            intent.putExtra("Gender", selectedGender)
@@ -81,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

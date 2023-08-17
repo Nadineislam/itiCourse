@@ -7,42 +7,57 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.iticourse.OnClickListener
+import com.example.iticourse.viewmodels.PostsViewModel
 import com.example.iticourse.R
 import com.example.iticourse.adapter.PostsAdapter
 import com.example.iticourse.api.RetrofitClient
 import com.example.iticourse.api.UserApi
 import com.example.iticourse.databinding.ActivityPostsBinding
 import com.example.iticourse.model.Post
-import com.example.iticourse.model.User
-import retrofit2.Retrofit
 
 
 class PostsActivity : AppCompatActivity(), OnClickListener {
     private lateinit var adapter: PostsAdapter
     private lateinit var sharedPref :SharedPreferences
-    lateinit var retrofit:UserApi
+    private lateinit var retrofit:UserApi
     private lateinit var binding: ActivityPostsBinding
+    private lateinit var viewModel: PostsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref=applicationContext.getSharedPreferences("UserPref", MODE_PRIVATE)
         binding = ActivityPostsBinding.inflate(layoutInflater)
         setContentView(binding.root)
          retrofit=RetrofitClient.getInstance("https://jsonplaceholder.typicode.com/")
+        viewModel = ViewModelProvider(this)[PostsViewModel::class.java]
         //binding.tvName.text="welcome ${sharedPref.getString("USERNAME","")}"
-      binding.btnGetPosts.setOnClickListener {
-          lifecycleScope.launchWhenStarted { val response=retrofit.getPostsByUser(binding.etId.text.toString().toInt())
-              if(response.isSuccessful){
-                  adapter = PostsAdapter(response.body() ?: listOf(),this@PostsActivity)
-                  binding.rvPosts.adapter = adapter
-                  binding.rvPosts.layoutManager = LinearLayoutManager(this@PostsActivity)
-              }
-              else{
-                  Toast.makeText(this@PostsActivity,"error",Toast.LENGTH_LONG).show()
-              }
-          } }
+//      binding.btnGetPosts.setOnClickListener {
+//          lifecycleScope.launchWhenStarted { val response=retrofit.getPostsByUser(binding.etId.text.toString().toInt())
+//              if(response.isSuccessful){
+//                  adapter = PostsAdapter(response.body() ?: listOf(),this@PostsActivity)
+//                  binding.rvPosts.adapter = adapter
+//                  binding.rvPosts.layoutManager = LinearLayoutManager(this@PostsActivity)
+//              }
+//              else{
+//                  Toast.makeText(this@PostsActivity,"error",Toast.LENGTH_LONG).show()
+//              }
+//          } }
+        binding.btnGetPosts.setOnClickListener {
+            val userId = binding.etId.text.toString().toInt()
+            viewModel.getPostsByUser(userId)
+        }
+
+        viewModel.posts.observe(this) { posts ->
+            adapter = PostsAdapter(posts, this@PostsActivity)
+            binding.rvPosts.adapter = adapter
+            binding.rvPosts.layoutManager = LinearLayoutManager(this@PostsActivity)
+        }
+
+        // binding.tvName.text = "welcome ${sharedPref.getString("USERNAME","")}"
+
 
 
     }

@@ -39,7 +39,6 @@
         android:layout_margin="15dp"
         android:hint="@string/et_username"
         android:importantForAutofill="no"
-        android:text="kminchelle"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@id/userName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,8 +63,6 @@
         android:layout_margin="5dp"
         android:hint="@string/et_password"
         android:importantForAutofill="no"
-
-        android:text="OlelplR"
         app:layout_constraintBottom_toBottomOf="@id/tvPassword"
         app:layout_constraintStart_toEndOf="@id/tvPassword"
         app:layout_constraintTop_toTopOf="@id/tvPassword" />
